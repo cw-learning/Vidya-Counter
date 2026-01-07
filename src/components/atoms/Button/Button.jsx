@@ -8,7 +8,7 @@ const Button = ({
     ariaLabel,
     className = ''
 }) => {
-    const baseStyles = 'px-6 py-3 rounded-lg font-semibold transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2'
+    const baseStyles = 'px-6 py-3 rounded-xl font-semibold transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 shadow-md hover:shadow-lg'
 
     const variants = {
         primary: 'bg-green-600 hover:bg-green-700 text-white focus:ring-green-500',
