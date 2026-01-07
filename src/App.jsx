@@ -27,6 +27,7 @@ function App() {
                 value={initialValue}
                 onChange={(e) => setInitialValue(Number(e.target.value))}
                 className="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                step="any"
               />
             </div>
             <div className="flex-1 min-w-[140px]">
@@ -38,6 +39,7 @@ function App() {
                 value={step}
                 onChange={(e) => setStep(Number(e.target.value))}
                 className="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                step="any"
               />
             </div>
             <div className="flex items-end">
