@@ -1,13 +1,13 @@
 import { useState } from 'react'
-import Button from '../../atoms/Button/Button'
-import Display from '../../atoms/Display/Display'
+import { Button } from '../../atoms/Button/Button'
+import { Display } from '../../atoms/Display/Display'
 
-const Counter = ({ initialValue = 0, step = 1 }) => {
+export const Counter = ({ initialValue = 0, step = 1 }) => {
     const [count, setCount] = useState(initialValue)
 
-    const increment = () => setCount(count + step)
-    const decrement = () => setCount(count - step)
-    const reset = () => setCount(initialValue)
+    const handleClickIncrement = () => setCount(count + step)
+    const handleClickDecrement = () => setCount(count - step)
+    const handleClickReset = () => setCount(initialValue)
 
     return (
         <div className="bg-white rounded-3xl shadow-2xl p-10 w-full max-w-md transform transition-all duration-300 hover:shadow-green-200/50 hover:scale-[1.02]">
@@ -21,7 +21,7 @@ const Counter = ({ initialValue = 0, step = 1 }) => {
 
             <div className="flex gap-4 mb-6">
                 <Button
-                    onClick={decrement}
+                    onClick={handleClickDecrement}
                     variant="danger"
                     ariaLabel="decrement counter"
                     className="flex-1 text-2xl font-bold transform transition-transform active:scale-95"
@@ -29,7 +29,7 @@ const Counter = ({ initialValue = 0, step = 1 }) => {
                     −
                 </Button>
                 <Button
-                    onClick={increment}
+                    onClick={handleClickIncrement}
                     variant="primary"
                     ariaLabel="increment counter"
                     className="flex-1 text-2xl font-bold transform transition-transform active:scale-95"
@@ -39,7 +39,7 @@ const Counter = ({ initialValue = 0, step = 1 }) => {
             </div>
 
             <Button
-                onClick={reset}
+                onClick={handleClickReset}
                 variant="secondary"
                 ariaLabel="reset counter"
                 className="w-full transform transition-transform active:scale-95"
@@ -49,5 +49,3 @@ const Counter = ({ initialValue = 0, step = 1 }) => {
         </div>
     )
 }
-
-export default Counter

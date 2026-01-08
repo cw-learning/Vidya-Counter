@@ -1,7 +1,7 @@
 import { describe, it, expect, vi } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import Button from './Button'
+import { Button } from './Button'
 
 describe('Button', () => {
     it('renders button with children', () => {
@@ -32,7 +32,7 @@ describe('Button', () => {
     it('renders with primary variant by default', () => {
         render(<Button>Click me</Button>)
         const button = screen.getByText('Click me')
-        expect(button).toHaveClass('bg-blue-600')
+        expect(button).toHaveClass('bg-green-600')
     })
 
     it('renders with secondary variant', () => {

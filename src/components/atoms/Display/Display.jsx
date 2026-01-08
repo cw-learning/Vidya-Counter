@@ -1,6 +1,8 @@
 import clsx from 'clsx'
 
-const Display = ({ value, label, className = '' }) => {
+export const Display = ({ value, label, className = '' }) => {
+    const displayAriaLabel = label ? `${label}: ${value}` : `counter value: ${value}`
+
     return (
         <div className={clsx('text-center', className)}>
             {label && (
@@ -9,12 +11,10 @@ const Display = ({ value, label, className = '' }) => {
             <div
                 className="text-7xl font-bold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent tabular-nums transition-all duration-300"
                 aria-live="polite"
-                aria-label={label ? `${label}: ${value}` : `counter value: ${value}`}
+                aria-label={displayAriaLabel}
             >
                 {value}
             </div>
         </div>
     )
 }
-
-export default Display
