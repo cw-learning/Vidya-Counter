@@ -1,14 +1,22 @@
 import { useState } from 'react'
-import Counter from './components/organisms/Counter/Counter'
+import { Counter } from './components/organisms/Counter/Counter'
 
 function App() {
   const [initialValue, setInitialValue] = useState(10)
   const [step, setStep] = useState(5)
   const [key, setKey] = useState(0)
 
-  const handleApply = () => {
+  const handleClickApply = () => {
     // Force Counter to re-render with new props by changing key
     setKey(prevKey => prevKey + 1)
+  }
+
+  const handleOnChangeInitialValue = (event) => {
+    setInitialValue(Number(event.target.value))
+  }
+
+  const handleOnChangeStepValue = (event) => {
+    setStep(Number(event.target.value))
   }
 
   return (
@@ -25,7 +33,7 @@ function App() {
               <input
                 type="number"
                 value={initialValue}
-                onChange={(e) => setInitialValue(Number(e.target.value))}
+                onChange={handleOnChangeInitialValue}
                 className="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
                 step="any"
               />
@@ -37,14 +45,14 @@ function App() {
               <input
                 type="number"
                 value={step}
-                onChange={(e) => setStep(Number(e.target.value))}
+                onChange={handleOnChangeStepValue}
                 className="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
                 step="any"
               />
             </div>
             <div className="flex items-end">
               <button
-                onClick={handleApply}
+                onClick={handleClickApply}
                 className="px-4 py-1.5 text-sm bg-green-600 hover:bg-green-700 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200"
               >
                 Apply
