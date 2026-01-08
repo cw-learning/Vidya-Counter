@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest'
 import { render, screen } from '@testing-library/react'
-import Display from './Display'
+import { Display } from './Display'
 
 describe('Display', () => {
     it('renders the counter value', () => {
