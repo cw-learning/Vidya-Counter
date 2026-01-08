@@ -1,6 +1,6 @@
 import clsx from 'clsx'
 
-const Button = ({
+export const Button = ({
     children,
     onClick,
     variant = 'primary',
@@ -18,21 +18,21 @@ const Button = ({
 
     const disabledStyles = 'opacity-50 cursor-not-allowed'
 
+    const buttonClassName = clsx(
+        baseStyles,
+        variants[variant],
+        disabled && disabledStyles,
+        className
+    )
+
     return (
         <button
             onClick={onClick}
             disabled={disabled}
             aria-label={ariaLabel}
-            className={clsx(
-                baseStyles,
-                variants[variant],
-                disabled && disabledStyles,
-                className
-            )}
+            className={buttonClassName}
         >
             {children}
         </button>
     )
 }
-
-export default Button
