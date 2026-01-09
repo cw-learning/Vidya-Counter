@@ -1,8 +1,1 @@
 @import "tailwindcss";
-
-/* stylelint-disable-next-line unknown-at-rule */
-@variant dark (prefers-color-scheme: dark) {
-  :root {
-    color-scheme: dark;
-  }
-}
