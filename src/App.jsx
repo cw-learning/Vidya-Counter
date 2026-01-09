@@ -10,11 +10,13 @@ function App() {
   const [step, setStep] = useState(5)
   const [key, setKey] = useState(0)
 
+  // Apply theme to document on mount and when theme changes
   useEffect(() => {
+    const root = document.documentElement
     if (themeMode === 'dark') {
-      document.documentElement.classList.add('dark')
+      root.classList.add('dark')
     } else {
-      document.documentElement.classList.remove('dark')
+      root.classList.remove('dark')
     }
   }, [themeMode])
 
