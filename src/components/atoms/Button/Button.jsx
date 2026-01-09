@@ -1,4 +1,5 @@
 import clsx from 'clsx'
+import PropTypes from 'prop-types'
 
 export const Button = ({
     children,
@@ -35,4 +36,13 @@ export const Button = ({
             {children}
         </button>
     )
+}
+
+Button.propTypes = {
+    children: PropTypes.node.isRequired,
+    onClick: PropTypes.func,
+    variant: PropTypes.oneOf(['primary', 'secondary', 'danger']),
+    disabled: PropTypes.bool,
+    ariaLabel: PropTypes.string,
+    className: PropTypes.string,
 }

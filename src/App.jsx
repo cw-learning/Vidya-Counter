@@ -34,7 +34,7 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50 dark:from-gray-900 dark:via-slate-900 dark:to-gray-800 flex items-center justify-center p-4 transition-colors duration-300">
+    <div className="min-h-screen bg-linear-to-br from-green-50 via-emerald-50 to-teal-50 dark:from-gray-900 dark:via-slate-900 dark:to-gray-800 flex items-center justify-center p-4 transition-colors duration-300">
       <div className="flex flex-col gap-6 w-full max-w-md">
         {/* Theme Toggle */}
         <div className="flex justify-end">
@@ -47,11 +47,12 @@ function App() {
             Counter Settings
           </h3>
           <div className="flex gap-3 flex-wrap">
-            <div className="flex-1 min-w-[140px]">
-              <label className="block text-xs font-medium text-gray-700 dark:text-gray-300 mb-1">
+            <div className="flex-1 min-w-35">
+              <label htmlFor="initial-value" className="block text-xs font-medium text-gray-700 dark:text-gray-300 mb-1">
                 Initial Value
               </label>
               <input
+                id="initial-value"
                 type="number"
                 value={initialValue}
                 onChange={handleOnChangeInitialValue}
@@ -59,11 +60,12 @@ function App() {
                 step="any"
               />
             </div>
-            <div className="flex-1 min-w-[140px]">
-              <label className="block text-xs font-medium text-gray-700 dark:text-gray-300 mb-1">
+            <div className="flex-1 min-w-35">
+              <label htmlFor="step-value" className="block text-xs font-medium text-gray-700 dark:text-gray-300 mb-1">
                 Step Value
               </label>
               <input
+                id="step-value"
                 type="number"
                 value={step}
                 onChange={handleOnChangeStepValue}
