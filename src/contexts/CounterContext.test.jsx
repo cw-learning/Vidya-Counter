@@ -102,14 +102,17 @@ describe('CounterContext Integration Tests', () => {
         const user = userEvent.setup()
         render(<App />)
 
-        // Change settings but do NOT apply
-        await user.clear(screen.getByLabelText(/initial value/i))
-        await user.type(screen.getByLabelText(/initial value/i), '100')
+        const getCount = () => screen.getByLabelText(/current count/i)
+        expect(getCount()).toHaveTextContent('10')
+
+        const initialValueInput = screen.getByLabelText(/initial value/i)
+        await user.clear(initialValueInput)
+        await user.type(initialValueInput, '100')
 
         await user.click(screen.getByRole('button', { name: /increment counter/i }))
-        // expect count to reflect OLD step/initial until Apply is clicked
+        expect(getCount()).toHaveTextContent('15') // old step before Apply
 
         await user.click(screen.getByRole('button', { name: /apply/i }))
-        // expect reset/count behavior to now use the NEW initial/step
+        expect(getCount()).toHaveTextContent('100')
     })
 })

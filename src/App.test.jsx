@@ -3,12 +3,12 @@ import userEvent from '@testing-library/user-event'
 import { describe, expect, it } from 'vitest'
 import App from './App'
 
+const getCount = () => screen.getByLabelText(/current count/i)
+
 describe('App Integration Tests', () => {
     it('only applies new initial/step after clicking Apply', async () => {
         const user = userEvent.setup()
         render(<App />)
-
-        const getCount = () => screen.getByLabelText(/current count/i)
 
         // Initial state: count should be at initialValue (10)
         expect(getCount()).toHaveTextContent('10')
@@ -46,8 +46,6 @@ describe('App Integration Tests', () => {
         const user = userEvent.setup()
         render(<App />)
 
-        const getCount = () => screen.getByLabelText(/current count/i)
-
         // Increment counter
         await user.click(screen.getByRole('button', { name: /increment counter/i }))
         expect(getCount()).toHaveTextContent('15')
@@ -74,8 +72,6 @@ describe('App Integration Tests', () => {
         const user = userEvent.setup()
         render(<App />)
 
-        const getCount = () => screen.getByLabelText(/current count/i)
-
         // Change step to 3
         const stepValueInput = screen.getByLabelText(/step value/i)
         await user.clear(stepValueInput)
@@ -95,7 +91,6 @@ describe('App Integration Tests', () => {
         const user = userEvent.setup()
         render(<App />)
 
-        const getCount = () => screen.getByLabelText(/current count/i)
         const initialValueInput = screen.getByLabelText(/initial value/i)
 
         // Change to 999 but don't apply
@@ -113,7 +108,6 @@ describe('App Integration Tests', () => {
         const user = userEvent.setup()
         render(<App />)
 
-        const getCount = () => screen.getByLabelText(/current count/i)
         const initialValueInput = screen.getByLabelText(/initial value/i)
 
         // Clear input (empty string)
