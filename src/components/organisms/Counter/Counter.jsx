@@ -1,9 +1,21 @@
+import { useCounterContext } from '../../../contexts/counterContext'
 import Button from '../../atoms/Button/Button'
 import Display from '../../atoms/Display/Display'
-import { useCounterContext } from '../../../contexts/CounterContext'
 
 const Counter = () => {
-    const { count, handleIncrement, handleDecrement, handleReset } = useCounterContext()
+    const { count, initialValue, step, setCount } = useCounterContext()
+
+    const handleIncrement = () => {
+        setCount(prevCount => prevCount + step)
+    }
+
+    const handleDecrement = () => {
+        setCount(prevCount => prevCount - step)
+    }
+
+    const handleReset = () => {
+        setCount(initialValue)
+    }
 
     return (
         <div className="bg-white rounded-3xl shadow-2xl p-10 w-full max-w-md transform transition-all duration-300 hover:shadow-green-200/50 hover:scale-[1.02]">
