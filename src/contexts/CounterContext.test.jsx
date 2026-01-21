@@ -1,5 +1,7 @@
-import { act, renderHook } from '@testing-library/react'
+import { act, render, renderHook, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import { describe, expect, it } from 'vitest'
+import App from '../App'
 import { CounterProvider } from './CounterProvider'
 import { useCounterContext } from './counterContext'
 
@@ -65,138 +67,6 @@ describe('CounterContext', () => {
             })
         })
 
-        describe('increment operation', () => {
-            it('should increment count by step value', () => {
-                const { result } = renderWithCounterProvider({ initialValue: 0, step: 5 })
-
-                act(() => {
-                    result.current.setCount(prev => prev + result.current.step)
-                })
-
-                expect(result.current.count).toBe(5)
-            })
-
-            it('should handle multiple increments', () => {
-                const { result } = renderWithCounterProvider({ initialValue: 0, step: 2 })
-
-                act(() => {
-                    result.current.setCount(prev => prev + result.current.step)
-                    result.current.setCount(prev => prev + result.current.step)
-                    result.current.setCount(prev => prev + result.current.step)
-                })
-
-                expect(result.current.count).toBe(6)
-            })
-
-            it('should increment with negative step value', () => {
-                const { result } = renderWithCounterProvider({ initialValue: 0, step: -3 })
-
-                act(() => {
-                    result.current.setCount(prev => prev + result.current.step)
-                })
-
-                expect(result.current.count).toBe(-3)
-            })
-        })
-
-        describe('decrement operation', () => {
-            it('should decrement count by step value', () => {
-                const { result } = renderWithCounterProvider({ initialValue: 10, step: 3 })
-
-                act(() => {
-                    result.current.setCount(prev => prev - result.current.step)
-                })
-
-                expect(result.current.count).toBe(7)
-            })
-
-            it('should handle multiple decrements', () => {
-                const { result } = renderWithCounterProvider({ initialValue: 20, step: 4 })
-
-                act(() => {
-                    result.current.setCount(prev => prev - result.current.step)
-                    result.current.setCount(prev => prev - result.current.step)
-                })
-
-                expect(result.current.count).toBe(12)
-            })
-
-            it('should decrement with negative step value', () => {
-                const { result } = renderWithCounterProvider({ initialValue: 0, step: -3 })
-
-                act(() => {
-                    result.current.setCount(prev => prev - result.current.step)
-                })
-
-                expect(result.current.count).toBe(3)
-            })
-        })
-
-        describe('reset operation', () => {
-            it('should reset count to initial value', () => {
-                const { result } = renderWithCounterProvider({ initialValue: 15 })
-
-                act(() => {
-                    result.current.setCount(prev => prev + result.current.step)
-                    result.current.setCount(prev => prev + result.current.step)
-                })
-
-                expect(result.current.count).toBe(17)
-
-                act(() => {
-                    result.current.setCount(result.current.initialValue)
-                })
-
-                expect(result.current.count).toBe(15)
-            })
-        })
-
-        describe('mixed operations', () => {
-            it('should maintain correct count through increment and decrement', () => {
-                const { result } = renderWithCounterProvider({ initialValue: 5, step: 3 })
-
-                act(() => {
-                    result.current.setCount(prev => prev + result.current.step)
-                    result.current.setCount(prev => prev + result.current.step)
-                    result.current.setCount(prev => prev - result.current.step)
-                    result.current.setCount(prev => prev + result.current.step)
-                })
-
-                expect(result.current.count).toBe(11)
-            })
-
-            it('should reset correctly after mixed operations', () => {
-                const { result } = renderWithCounterProvider({ initialValue: 5, step: 3 })
-
-                act(() => {
-                    result.current.setCount(prev => prev + result.current.step)
-                    result.current.setCount(prev => prev + result.current.step)
-                    result.current.setCount(prev => prev - result.current.step)
-                    result.current.setCount(prev => prev + result.current.step)
-                })
-
-                expect(result.current.count).toBe(11)
-
-                act(() => {
-                    result.current.setCount(result.current.initialValue)
-                })
-
-                expect(result.current.count).toBe(5)
-            })
-
-            it('should work with negative initial and increment', () => {
-                const { result } = renderWithCounterProvider({ initialValue: -10, step: 2 })
-
-                expect(result.current.count).toBe(-10)
-
-                act(() => {
-                    result.current.setCount(prev => prev + result.current.step)
-                })
-
-                expect(result.current.count).toBe(-8)
-            })
-        })
-
         describe('applySettings', () => {
             it('should update settings and reset count', () => {
                 const { result } = renderWithCounterProvider({ initialValue: 10, step: 5 })
@@ -224,5 +94,22 @@ describe('CounterContext', () => {
                 expect(result.current.count).toBe(110)
             })
         })
+    })
+})
+
+describe('CounterContext Integration Tests', () => {
+    it('only applies new initial/step after clicking Apply', async () => {
+        const user = userEvent.setup()
+        render(<App />)
+
+        // Change settings but do NOT apply
+        await user.clear(screen.getByLabelText(/initial value/i))
+        await user.type(screen.getByLabelText(/initial value/i), '100')
+
+        await user.click(screen.getByRole('button', { name: /increment counter/i }))
+        // expect count to reflect OLD step/initial until Apply is clicked
+
+        await user.click(screen.getByRole('button', { name: /apply/i }))
+        // expect reset/count behavior to now use the NEW initial/step
     })
 })

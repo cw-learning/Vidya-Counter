@@ -1,10 +1,18 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useCounterContext } from '../../../contexts/counterContext'
 
 const Settings = () => {
     const { initialValue, step, applySettings } = useCounterContext()
     const [draftInitialValue, setDraftInitialValue] = useState(String(initialValue))
     const [draftStep, setDraftStep] = useState(String(step))
+
+    useEffect(() => {
+        setDraftInitialValue(String(initialValue))
+    }, [initialValue])
+
+    useEffect(() => {
+        setDraftStep(String(step))
+    }, [step])
 
     const handleOnChangeInitialValue = event => {
         setDraftInitialValue(event.currentTarget.value)

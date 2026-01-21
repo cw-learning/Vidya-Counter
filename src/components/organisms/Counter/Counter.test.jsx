@@ -8,19 +8,19 @@ const renderWithProvider = (initialValue = 0, step = 1) => {
     return render(
         <CounterProvider initialValue={initialValue} step={step}>
             <Counter />
-        </CounterProvider>,
+        </CounterProvider>
     )
 }
 
 describe('Counter', () => {
     it('renders with initial value of 0', () => {
         renderWithProvider()
-        expect(screen.getByText('0')).toBeInTheDocument()
+        expect(screen.getByLabelText(/current count/i)).toHaveTextContent('0')
     })
 
     it('renders with custom initial value', () => {
         renderWithProvider(10)
-        expect(screen.getByText('10')).toBeInTheDocument()
+        expect(screen.getByLabelText(/current count/i)).toHaveTextContent('10')
     })
 
     it('increments counter when + button is clicked', async () => {
@@ -30,7 +30,7 @@ describe('Counter', () => {
         const incrementButton = screen.getByLabelText('increment counter')
         await user.click(incrementButton)
 
-        expect(screen.getByText('1')).toBeInTheDocument()
+        expect(screen.getByLabelText(/current count/i)).toHaveTextContent('1')
     })
 
     it('decrements counter when - button is clicked', async () => {
@@ -40,7 +40,7 @@ describe('Counter', () => {
         const decrementButton = screen.getByLabelText('decrement counter')
         await user.click(decrementButton)
 
-        expect(screen.getByText('-1')).toBeInTheDocument()
+        expect(screen.getByLabelText(/current count/i)).toHaveTextContent('-1')
     })
 
     it('resets counter to initial value when reset button is clicked', async () => {
@@ -51,12 +51,12 @@ describe('Counter', () => {
         await user.click(incrementButton)
         await user.click(incrementButton)
 
-        expect(screen.getByText('7')).toBeInTheDocument()
+        expect(screen.getByLabelText(/current count/i)).toHaveTextContent('7')
 
         const resetButton = screen.getByLabelText('reset counter')
         await user.click(resetButton)
 
-        expect(screen.getByText('5')).toBeInTheDocument()
+        expect(screen.getByLabelText(/current count/i)).toHaveTextContent('5')
     })
 
     it('increments by custom step value', async () => {
@@ -66,7 +66,7 @@ describe('Counter', () => {
         const incrementButton = screen.getByLabelText('increment counter')
         await user.click(incrementButton)
 
-        expect(screen.getByText('5')).toBeInTheDocument()
+        expect(screen.getByLabelText(/current count/i)).toHaveTextContent('5')
     })
 
     it('decrements by custom step value', async () => {
@@ -76,7 +76,7 @@ describe('Counter', () => {
         const decrementButton = screen.getByLabelText('decrement counter')
         await user.click(decrementButton)
 
-        expect(screen.getByText('7')).toBeInTheDocument()
+        expect(screen.getByLabelText(/current count/i)).toHaveTextContent('7')
     })
 
     it('handles multiple increments and decrements', async () => {
@@ -90,7 +90,7 @@ describe('Counter', () => {
         await user.click(incrementButton)
         await user.click(decrementButton)
 
-        expect(screen.getByText('2')).toBeInTheDocument()
+        expect(screen.getByLabelText(/current count/i)).toHaveTextContent('2')
     })
 
     it('displays counter application title', () => {
