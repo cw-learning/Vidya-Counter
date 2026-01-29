@@ -1,7 +1,7 @@
-import { describe, it, expect, vi } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { Button } from './Button'
+import { describe, expect, it, vi } from 'vitest'
+import Button from './Button'
 
 describe('Button', () => {
     it('renders button with children', () => {
@@ -23,7 +23,11 @@ describe('Button', () => {
         const handleClick = vi.fn()
         const user = userEvent.setup()
 
-        render(<Button onClick={handleClick} disabled>Click me</Button>)
+        render(
+            <Button onClick={handleClick} disabled>
+                Click me
+            </Button>
+        )
         await user.click(screen.getByText('Click me'))
 
         expect(handleClick).not.toHaveBeenCalled()

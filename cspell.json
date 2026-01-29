@@ -1,0 +1,32 @@
+{
+  "version": "0.2",
+  "language": "en",
+  "words": [
+    "Vidya",
+    "CodeWalnut",
+    "swathishreebv",
+    "vitest",
+    "biomejs",
+    "cspell",
+    "jsdom",
+    "clsx",
+    "userdata",
+    "autofocus",
+    "datetime",
+    "tailwindcss",
+    "postcss",
+    "vite",
+    "nums"
+  ],
+  "ignoreWords": [],
+  "ignorePaths": [
+    "node_modules",
+    "dist",
+    "build",
+    "coverage",
+    ".git",
+    "package-lock.json",
+    "*.min.js",
+    "*.min.css"
+  ]
+}
