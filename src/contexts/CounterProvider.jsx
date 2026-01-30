@@ -3,7 +3,7 @@ import { CounterContext } from './counterContext'
 
 const isFiniteNumber = value => typeof value === 'number' && Number.isFinite(value)
 
-export const CounterProvider = ({ children, initialValue = 0, step = 1 }) => {
+export const CounterProvider = ({ children, initialValue = 10, step = 5 }) => {
     const safeInitialValue = isFiniteNumber(initialValue) ? initialValue : 0
     const safeStep = isFiniteNumber(step) ? step : 1
 

@@ -1,4 +1,4 @@
-import { useCounterContext } from '../../../contexts/CounterProvider'
+import { useCounterContext } from '../../../contexts/counterContext'
 import { Button } from '../../atoms/Button/Button'
 import { Display } from '../../atoms/Display/Display'
 
@@ -6,11 +6,11 @@ export const Counter = () => {
     const { count, initialValue, step, setCount } = useCounterContext()
 
     const handleIncrement = () => {
-        setCount((prevCount) => prevCount + step)
+        setCount(prevCount => prevCount + step)
     }
 
     const handleDecrement = () => {
-        setCount((prevCount) => prevCount - step)
+        setCount(prevCount => prevCount - step)
     }
 
     const handleReset = () => {

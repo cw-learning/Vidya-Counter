@@ -1,16 +1,17 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { Provider } from 'react-redux'
-import { store } from './store'
-import { CounterProvider } from './contexts/CounterProvider'
 import App from './App'
+import { CounterProvider } from './contexts/CounterProvider'
+import { store } from './store/store'
+import './index.css'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <CounterProvider>
-        <App />
-      </CounterProvider>
-    </Provider>
-  </React.StrictMode>
+    <React.StrictMode>
+        <Provider store={store}>
+            <CounterProvider>
+                <App />
+            </CounterProvider>
+        </Provider>
+    </React.StrictMode>
 )

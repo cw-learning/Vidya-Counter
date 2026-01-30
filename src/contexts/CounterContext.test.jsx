@@ -1,7 +1,9 @@
 import { act, render, renderHook, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
+import { Provider } from 'react-redux'
 import { describe, expect, it } from 'vitest'
 import App from '../App'
+import { store } from '../store/store'
 import { CounterProvider } from './CounterProvider'
 import { useCounterContext } from './counterContext'
 
@@ -28,9 +30,9 @@ describe('CounterContext', () => {
             it('should initialize with default values', () => {
                 const { result } = renderWithCounterProvider()
 
-                expect(result.current.count).toBe(0)
-                expect(result.current.initialValue).toBe(0)
-                expect(result.current.step).toBe(1)
+                expect(result.current.count).toBe(10)
+                expect(result.current.initialValue).toBe(10)
+                expect(result.current.step).toBe(5)
             })
 
             it('should initialize with custom initial value', () => {
@@ -100,7 +102,13 @@ describe('CounterContext', () => {
 describe('CounterContext Integration Tests', () => {
     it('only applies new initial/step after clicking Apply', async () => {
         const user = userEvent.setup()
-        render(<App />)
+        render(
+            <Provider store={store}>
+                <CounterProvider>
+                    <App />
+                </CounterProvider>
+            </Provider>
+        )
 
         const getCount = () => screen.getByLabelText(/current count/i)
         expect(getCount()).toHaveTextContent('10')

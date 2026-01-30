@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux'
-import { toggleTheme, selectThemeMode } from '../../../store/slices/themeSlice'
+import { selectThemeMode, toggleTheme } from '../../../store/slices/themeSlice'
 
 export const ThemeToggle = () => {
     const dispatch = useDispatch()
@@ -13,6 +13,7 @@ export const ThemeToggle = () => {
 
     return (
         <button
+            type="button"
             onClick={handleClickToggleTheme}
             aria-label={`Switch to ${isDarkMode ? 'light' : 'dark'} mode`}
             className="p-3 rounded-lg bg-white dark:bg-gray-800 shadow-md hover:shadow-lg transition-all duration-200 border border-gray-200 dark:border-gray-700"
@@ -26,6 +27,7 @@ export const ThemeToggle = () => {
                     stroke="currentColor"
                     className="w-6 h-6 text-yellow-500"
                 >
+                    <title>Sun icon</title>
                     <path
                         strokeLinecap="round"
                         strokeLinejoin="round"
@@ -41,6 +43,7 @@ export const ThemeToggle = () => {
                     stroke="currentColor"
                     className="w-6 h-6 text-gray-700"
                 >
+                    <title>Moon icon</title>
                     <path
                         strokeLinecap="round"
                         strokeLinejoin="round"

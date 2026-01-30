@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
-/* Enable system dark color-scheme */
-@media (prefers-color-scheme: dark) {
-    :root {
-        color-scheme: dark;
-    }
+@variant dark (&:where(.dark, .dark *));
+@variant light (&:where(:not(.dark *)));
+
+:root {
+    color-scheme: light dark;
 }

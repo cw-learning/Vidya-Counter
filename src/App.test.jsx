@@ -1,14 +1,23 @@
-import { render, screen } from '@testing-library/react'
+import { fireEvent, render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
+import { Provider } from 'react-redux'
 import { describe, expect, it } from 'vitest'
 import App from './App'
+import { CounterProvider } from './contexts/CounterProvider'
+import { store } from './store/store'
 
 const getCount = () => screen.getByLabelText(/current count/i)
 
 describe('App Integration Tests', () => {
     it('only applies new initial/step after clicking Apply', async () => {
         const user = userEvent.setup()
-        render(<App />)
+        render(
+            <Provider store={store}>
+                <CounterProvider>
+                    <App />
+                </CounterProvider>
+            </Provider>
+        )
 
         // Initial state: count should be at initialValue (10)
         expect(getCount()).toHaveTextContent('10')
@@ -17,11 +26,8 @@ describe('App Integration Tests', () => {
         const initialValueInput = screen.getByLabelText(/initial value/i)
         const stepValueInput = screen.getByLabelText(/step value/i)
 
-        await user.clear(initialValueInput)
-        await user.type(initialValueInput, '100')
-
-        await user.clear(stepValueInput)
-        await user.type(stepValueInput, '10')
+        fireEvent.change(initialValueInput, { target: { value: '100' } })
+        fireEvent.change(stepValueInput, { target: { value: '10' } })
 
         // Increment counter - should use OLD step (5) not new step (10)
         await user.click(screen.getByRole('button', { name: /increment counter/i }))
@@ -44,7 +50,13 @@ describe('App Integration Tests', () => {
 
     it('should reset to new initial value after applying settings', async () => {
         const user = userEvent.setup()
-        render(<App />)
+        render(
+            <Provider store={store}>
+                <CounterProvider>
+                    <App />
+                </CounterProvider>
+            </Provider>
+        )
 
         // Increment counter
         await user.click(screen.getByRole('button', { name: /increment counter/i }))
@@ -70,12 +82,17 @@ describe('App Integration Tests', () => {
 
     it('should handle decrement with new step after applying', async () => {
         const user = userEvent.setup()
-        render(<App />)
+        render(
+            <Provider store={store}>
+                <CounterProvider>
+                    <App />
+                </CounterProvider>
+            </Provider>
+        )
 
         // Change step to 3
         const stepValueInput = screen.getByLabelText(/step value/i)
-        await user.clear(stepValueInput)
-        await user.type(stepValueInput, '3')
+        fireEvent.change(stepValueInput, { target: { value: '3' } })
 
         // Apply settings
         await user.click(screen.getByRole('button', { name: /apply/i }))
@@ -88,14 +105,18 @@ describe('App Integration Tests', () => {
     })
 
     it('should preserve draft values when not applying', async () => {
-        const user = userEvent.setup()
-        render(<App />)
+        render(
+            <Provider store={store}>
+                <CounterProvider>
+                    <App />
+                </CounterProvider>
+            </Provider>
+        )
 
         const initialValueInput = screen.getByLabelText(/initial value/i)
 
         // Change to 999 but don't apply
-        await user.clear(initialValueInput)
-        await user.type(initialValueInput, '999')
+        fireEvent.change(initialValueInput, { target: { value: '999' } })
 
         // Input should show 999
         expect(initialValueInput).toHaveValue(999)
@@ -106,12 +127,18 @@ describe('App Integration Tests', () => {
 
     it('should handle invalid input gracefully', async () => {
         const user = userEvent.setup()
-        render(<App />)
+        render(
+            <Provider store={store}>
+                <CounterProvider>
+                    <App />
+                </CounterProvider>
+            </Provider>
+        )
 
         const initialValueInput = screen.getByLabelText(/initial value/i)
 
         // Clear input (empty string)
-        await user.clear(initialValueInput)
+        fireEvent.change(initialValueInput, { target: { value: '' } })
 
         // Apply with empty input should keep previous value
         await user.click(screen.getByRole('button', { name: /apply/i }))

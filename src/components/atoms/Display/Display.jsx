@@ -7,9 +7,7 @@ export const Display = ({ value, label, className = '' }) => {
     return (
         <div className={clsx('text-center', className)}>
             {label && (
-                <p className="text-sm text-gray-600 dark:text-gray-300 mb-2 font-medium">
-                    {label}
-                </p>
+                <p className="text-sm text-gray-600 dark:text-gray-300 mb-2 font-medium">{label}</p>
             )}
 
             <output
@@ -28,4 +26,3 @@ Display.propTypes = {
     label: PropTypes.string,
     className: PropTypes.string,
 }
-

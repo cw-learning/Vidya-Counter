@@ -1,8 +1,8 @@
-import { describe, it, expect} from 'vitest'
+import { configureStore } from '@reduxjs/toolkit'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { Provider } from 'react-redux'
-import { configureStore } from '@reduxjs/toolkit'
+import { describe, expect, it } from 'vitest'
 import themeReducer from '../../../store/slices/themeSlice'
 import { ThemeToggle } from './ThemeToggle'
 

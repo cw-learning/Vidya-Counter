@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { describe, expect, it } from 'vitest'
 import { CounterProvider } from '../../../contexts/CounterProvider'
-import Counter from './Counter'
+import { Counter } from './Counter'
 
 const renderWithProvider = (initialValue = 0, step = 1) => {
     return render(
